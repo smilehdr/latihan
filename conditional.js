@@ -27,7 +27,7 @@ else if(nama != "" && peran != "") {
 var tanggal = 21;
 var bulan = 4;
 var tahun = 2018;
-var namaBulan = "";
+var namaBulan = "a";
 
 if(tanggal>=1 && tanggal <=31) {
     if(bulan>=1 && bulan <=12) {
