@@ -84,4 +84,4 @@ function palindrome(kata) {
   console.log(pasanganTerbesar(910233)); // 91
   console.log(pasanganTerbesar(71856421)); // 85
   console.log(pasanganTerbesar(79918293)); // 99
-  
+
