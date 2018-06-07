@@ -1,13 +1,73 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 
 export default class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      header : 'Hello state',
+      hasil : '',
+      angka1 : '',
+      angka2 : ''
+    }
+  }
+
+  hitung = () => {
+    const {angka1,angka2} = this.state
+    let hasilPerhitungan = 0;
+    let num1 = 0;
+    let num2 = 0;
+    let strAngka1 = angka1.replace(/\s/g, "");
+    for(let i = 0; i<strAngka1.length;i++) {
+      if(i % 2 != 0 && i>0) {
+        if(hasilPerhitungan == 0)
+        {
+          num1 = Number(strAngka1.charAt(i-1));
+        }
+        else
+        {
+          num1 = hasilPerhitungan;
+        }
+        
+        num2 = Number(strAngka1.charAt(i+1));
+        if(strAngka1.charAt(i) == "+") {
+          hasilPerhitungan = num1 + num2;
+        }
+        else if(strAngka1.charAt(i) == "-") {
+          hasilPerhitungan = num1 - num2;
+        }
+        else if(strAngka1.charAt(i) == "*") {
+          hasilPerhitungan = num1 * num2;
+        }
+        else if(strAngka1.charAt(i) == "/") {
+          hasilPerhitungan = num1 / num2;
+        }
+      }
+    }
+    this.setState({hasil : hasilPerhitungan})
+  }
   render() {
     return (
       <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
+        <Text style= {{fontSize : 32}}>Kalkulator</Text>
+        <TextInput 
+          style = {styles.inputBox}
+          value={String(this.state.angka1)}
+          onChangeText = {(text) => this.setState({angka1:text},this.hitung) }
+        />
+        <Text >Hasil: {this.state.hasil}</Text>
+        {/* <Text style= {{fontSize : 32}}>Kalkulator</Text>
+        <TextInput 
+          style = {styles.inputBox}
+          value={String(this.state.angka1)}
+          onChangeText = {(text) =>this.setState({angka1:Number(text)})}
+        />
+        <TextInput 
+          style = {styles.inputBox}
+          value={String(this.state.angka2)}
+          onChangeText = {(text) =>this.setState({angka2:Number(text)})}
+        />
+        <Button title="Hitung" onPress= {this.hitung}/> */}
       </View>
     );
   }
@@ -19,5 +79,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    margin: 32
   },
+  inputBox : {
+    width: '100%',
+    borderWidth : 1,
+    borderColor: 'black',
+    borderRadius: 6,
+    padding: 12,
+    margin: 6
+  }
 });
