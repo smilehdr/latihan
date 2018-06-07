@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import About from './components/About';
 
 export default class App extends React.Component {
   constructor() {
@@ -56,6 +57,7 @@ export default class App extends React.Component {
           onChangeText = {(text) => this.setState({angka1:text},this.hitung) }
         />
         <Text >Hasil: {this.state.hasil}</Text>
+        <About deskripsi={"ini adalah aplikasi kalkulator"}/>
         {/* <Text style= {{fontSize : 32}}>Kalkulator</Text>
         <TextInput 
           style = {styles.inputBox}
