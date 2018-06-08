@@ -6,7 +6,7 @@ export default class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      header : 'Hello state',
+      header : ' Hen',
       hasil : '',
       angka1 : '',
       angka2 : '',
@@ -20,39 +20,93 @@ export default class App extends React.Component {
     let num1 = 0;
     let num2 = 0;
     let strAngka1 = angka1.replace(/\s/g, "");
+    let tampungAngka1 = "";
+    let tampungAngka2 = "";
+    let tandaPerhitungan = "";
+    let isFirstTanda = true;
     for(let i = 0; i<strAngka1.length;i++) {
-      if(i % 2 != 0 && i>0) {
-        if(hasilPerhitungan == 0)
-        {
-          num1 = Number(strAngka1.charAt(i-1));
-        }
-        else
-        {
-          num1 = hasilPerhitungan;
-        }
-        
-        num2 = Number(strAngka1.charAt(i+1));
-        if(strAngka1.charAt(i) == "+") {
-          hasilPerhitungan = num1 + num2;
-        }
-        else if(strAngka1.charAt(i) == "-") {
-          hasilPerhitungan = num1 - num2;
-        }
-        else if(strAngka1.charAt(i) == "*") {
-          hasilPerhitungan = num1 * num2;
-        }
-        else if(strAngka1.charAt(i) == "/") {
-          hasilPerhitungan = num1 / num2;
-        }
+      if(strAngka1.charAt(i) != "+" && strAngka1.charAt(i) != "-" && strAngka1.charAt(i) != "*" && strAngka1.charAt(i) != "/") {
+        tampungAngka2 += strAngka1.charAt(i);
       }
+      else {
+        if(isFirstTanda) {
+          isFirstTanda = false;
+          hasilPerhitungan = Number(tampungAngka2);
+          tandaPerhitungan = strAngka1.charAt(i);
+        }
+        else {
+          
+          if(tandaPerhitungan == "+") {
+            hasilPerhitungan = hasilPerhitungan + Number(tampungAngka2);
+          }
+          else if(tandaPerhitungan == "-") {
+            hasilPerhitungan = hasilPerhitungan - Number(tampungAngka2);
+          }
+          else if(tandaPerhitungan == "*") {
+            hasilPerhitungan = hasilPerhitungan * Number(tampungAngka2);
+          }
+          else if(tandaPerhitungan == "/") {
+            hasilPerhitungan = hasilPerhitungan / Number(tampungAngka2);
+          }
+          tandaPerhitungan = strAngka1.charAt(i);
+        }
+        tampungAngka2 = "";
+      }
+    }
+    if(tandaPerhitungan == "+") {
+      hasilPerhitungan = hasilPerhitungan + Number(tampungAngka2);
+    }
+    else if(tandaPerhitungan == "-") {
+      hasilPerhitungan = hasilPerhitungan - Number(tampungAngka2);
+    }
+    else if(tandaPerhitungan == "*") {
+      hasilPerhitungan = hasilPerhitungan * Number(tampungAngka2);
+    }
+    else if(tandaPerhitungan == "/") {
+      hasilPerhitungan = hasilPerhitungan / Number(tampungAngka2);
     }
     this.setState({hasil : hasilPerhitungan})
   }
+
+  // hitung = () => {
+  //   const {angka1,angka2} = this.state
+  //   let hasilPerhitungan = 0;
+  //   let num1 = 0;
+  //   let num2 = 0;
+  //   let strAngka1 = angka1.replace(/\s/g, "");
+  //   for(let i = 0; i<strAngka1.length;i++) {
+  //     if(i % 2 != 0 && i>0) {
+  //       if(hasilPerhitungan == 0)
+  //       {
+  //         num1 = Number(strAngka1.charAt(i-1));
+  //       }
+  //       else
+  //       {
+  //         num1 = hasilPerhitungan;
+  //       }
+        
+  //       num2 = Number(strAngka1.charAt(i+1));
+  //       if(strAngka1.charAt(i) == "+") {
+  //         hasilPerhitungan = num1 + num2;
+  //       }
+  //       else if(strAngka1.charAt(i) == "-") {
+  //         hasilPerhitungan = num1 - num2;
+  //       }
+  //       else if(strAngka1.charAt(i) == "*") {
+  //         hasilPerhitungan = num1 * num2;
+  //       }
+  //       else if(strAngka1.charAt(i) == "/") {
+  //         hasilPerhitungan = num1 / num2;
+  //       }
+  //     }
+  //   }
+  //   this.setState({hasil : hasilPerhitungan})
+  // }
   render() {
     const {showAbout} = this.state;
     return (
       <View style={styles.container}>
-        <Text style= {{fontSize : 32}}>Kalkulator</Text>
+        <Text style= {{fontSize : 32}}>Kalkulator {this.state.header}</Text>
         <TextInput 
           style = {styles.inputBox}
           value={String(this.state.angka1)}
@@ -63,7 +117,7 @@ export default class App extends React.Component {
           showAbout ? <Button title="Hide About" onPress={() => this.setState({showAbout:false})}/> : <Button title="Show About" onPress={() => this.setState({showAbout:true})}/>
         }
         {
-          showAbout && <About deskripsi={"ini adalah aplikasi kalkulator"}/>
+          showAbout && <About deskripsi={"HEN - REACT NATIVE"}/>
         }
         
         {/* <Text style= {{fontSize : 32}}>Kalkulator</Text>
