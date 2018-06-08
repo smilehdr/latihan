@@ -9,7 +9,8 @@ export default class App extends React.Component {
       header : 'Hello state',
       hasil : '',
       angka1 : '',
-      angka2 : ''
+      angka2 : '',
+      showAbout : false
     }
   }
 
@@ -48,6 +49,7 @@ export default class App extends React.Component {
     this.setState({hasil : hasilPerhitungan})
   }
   render() {
+    const {showAbout} = this.state;
     return (
       <View style={styles.container}>
         <Text style= {{fontSize : 32}}>Kalkulator</Text>
@@ -57,7 +59,13 @@ export default class App extends React.Component {
           onChangeText = {(text) => this.setState({angka1:text},this.hitung) }
         />
         <Text >Hasil: {this.state.hasil}</Text>
-        <About deskripsi={"ini adalah aplikasi kalkulator"}/>
+        {
+          showAbout ? <Button title="Hide About" onPress={() => this.setState({showAbout:false})}/> : <Button title="Show About" onPress={() => this.setState({showAbout:true})}/>
+        }
+        {
+          showAbout && <About deskripsi={"ini adalah aplikasi kalkulator"}/>
+        }
+        
         {/* <Text style= {{fontSize : 32}}>Kalkulator</Text>
         <TextInput 
           style = {styles.inputBox}
